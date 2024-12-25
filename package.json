@@ -2,9 +2,11 @@
   "name": "wiiu-isfshax-packager",
   "version": "1.0.0",
   "description": "Bundle all the tools you need for ISFSHAX",
-  "main": "unused.js",
+  "source": "src/index.html",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "dev": "parcel src/index.html"
+    "dev": "parcel",
+    "build": "parcel build"
   },
   "repository": {
     "type": "git",
