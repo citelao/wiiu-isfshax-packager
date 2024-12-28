@@ -3,7 +3,7 @@ import JSZip from "jszip";
 console.log("Hi!");
 
 type PatchType = "aroma" | "haxchi" | "browser" | "dnspresso" | "udpih";
-const patchType: PatchType = "udpih";
+const patchType: PatchType = "aroma";
 
 async function generate() {
     // https://gbatemp.net/threads/how-to-set-up-isfshax.642258/
