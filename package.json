@@ -15,10 +15,13 @@
   "author": "Ben Stolovitz (citelao)",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^2.13.3"
+    "buffer": "^6.0.3",
+    "parcel": "^2.13.3",
+    "process": "^0.11.10"
   },
   "dependencies": {
     "@types/react": "^19.0.2",
-    "@types/react-dom": "^19.0.2"
+    "@types/react-dom": "^19.0.2",
+    "jszip": "^3.10.1"
   }
 }
