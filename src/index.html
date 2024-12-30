@@ -7,11 +7,44 @@
     <link rel="stylesheet" href="style.scss">
   </head>
   <body>
-    <h1>Wii U packager</h1>
+    <h1>Wii U ISFShax packager</h1>
     <p>
         This is a basic tool that automatically fetches all the files you need
-        to create an ISFShax SD card.
+        to create an <a href="https://github.com/isfshax/isfshax">ISFShax</a> SD card.
     </p>
+
+    <p>
+        Created by <a href="https://ben.stolovitz.com/">Ben Stolovitz</a> based
+        on the <a href="https://gbatemp.net/threads/how-to-set-up-isfshax.642258/">many helpful guides</a> on GBATemp.
+    </p>
+
+    <fieldset>
+      <legend>How are you deploying ISFShax?</legend>
+      <label>
+        <input type="radio" name="patchType" value="aroma" checked>
+        Aroma
+      </label>
+
+      <label>
+        <input type="radio" name="patchType" value="haxchi">
+        Haxchi
+      </label>
+
+      <label>
+        <input type="radio" name="patchType" value="browser">
+        Browser
+      </label>
+
+      <label>
+        <input type="radio" name="patchType" value="dnspresso">
+        DNSpresso
+      </label>
+
+      <label>
+        <input type="radio" name="patchType" value="udpih">
+        UDPIH
+      </label>
+    </fieldset>
 
     <button id="generate-package">
         Generate package

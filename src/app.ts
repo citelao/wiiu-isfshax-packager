@@ -1,11 +1,23 @@
 import JSZip from "jszip";
 
 type PatchType = "aroma" | "haxchi" | "browser" | "dnspresso" | "udpih";
-const patchType: PatchType = "aroma";
 
 const generateButton = document.getElementById("generate-package")!;
 const outputDiv = document.getElementById("generate-output")!;
 const outputStatus = document.getElementById("generate-status")!;
+
+function toPatchType(value: string): PatchType {
+    switch (value) {
+        case "aroma":
+        case "haxchi":
+        case "browser":
+        case "dnspresso":
+        case "udpih":
+            return value;
+        default:
+            throw new Error(`Invalid patch type: ${value}`);
+    }
+}
 
 function getProxyUrl(url: string) {
     return `https://corsproxy.io/?url=${url}`;
@@ -70,6 +82,9 @@ async function awaitAnimationFrame() {
 }
 
 async function generate() {
+    const patchTypeField = document.querySelector(`input[name="patchType"]:checked`) as HTMLInputElement;
+    const patchType = toPatchType(patchTypeField.value);
+
     // https://gbatemp.net/threads/how-to-set-up-isfshax.642258/
     const isfsPayload: IZipFolder = {
         name: "sd_card",
