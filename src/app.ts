@@ -1,9 +1,11 @@
 import JSZip from "jszip";
 
-console.log("Hi!");
-
 type PatchType = "aroma" | "haxchi" | "browser" | "dnspresso" | "udpih";
 const patchType: PatchType = "aroma";
+
+const generateButton = document.getElementById("generate-package")!;
+const outputDiv = document.getElementById("generate-output")!;
+const outputStatus = document.getElementById("generate-status")!;
 
 function getProxyUrl(url: string) {
     return `https://corsproxy.io/?url=${url}`;
@@ -39,16 +41,6 @@ function walkZipFolder<T, K = never>(folder: IZipFolder | IPairedZipFolder<K>, p
     return { name: folder.name, children };
 }
 
-function mapFolder<T>(folder: IPairedZipFolder<T>, fn: (file: IPairedZipFile<T>) => T): T[] {
-    return folder.children.map((child) => {
-        if ("children" in child) {
-            return mapFolder(child, fn);
-        } else {
-            return [fn(child)];
-        }
-    }).flat();
-}
-
 function awaitFolder<T>(folder: IPairedZipFolder<Promise<T>>): Promise<IPairedZipFolder<T>> {
     const children = folder.children.map(async (child) => {
         if ("children" in child) {
@@ -71,6 +63,10 @@ function generateJSZip(zipFolder: IPairedZipFolder<Blob>, startingZip?: JSZip): 
         }
     }
     return zip;
+}
+
+async function awaitAnimationFrame() {
+    return new Promise((resolve) => requestAnimationFrame(resolve));
 }
 
 async function generate() {
@@ -137,23 +133,41 @@ async function generate() {
     // TODO: DNSpresso
     // * root.rpx
 
+    // Reset outputDiv
+    outputDiv.innerHTML = "";
+    const list = document.createElement("ul");
+    outputDiv.appendChild(list);
+    await awaitAnimationFrame();
+
     console.log("Downloading files...");
+    outputStatus.innerText = "Downloading files...";
     const isfsPayloadPaired = walkZipFolder(isfsPayload, async (fileO) => {
+        const listItem = document.createElement("li");
         const file = fileO as IZipFile;
         const url = getProxyUrl(file.url);
+        listItem.innerText = `Downloading ${file.name}...`;
+        list.appendChild(listItem);
+
         const req = await fetch(url);
+
         if (!req.ok) {
             throw new Error(`Failed to download ${file.name}`);
         }
+
+        listItem.innerText = `✅ Downloaded ${file.name}`;
+
         if (file.payloadExtractorAsync) {
             return await file.payloadExtractorAsync(await req.blob());
         } else {
             return await req.blob();
         }
     });
+
+    await awaitAnimationFrame();
     const completePayload = await awaitFolder(isfsPayloadPaired);
 
     console.log("Creating zip file...");
+    outputStatus.innerText = "Creating zip file...";
     const zip = generateJSZip(completePayload);
 
     const content = await zip.generateAsync({ type: "base64" });
