@@ -3,21 +3,25 @@
   <head>
     <meta charset="utf-8"/>
     <title>ISFSHAX packager</title>
+
+    <link rel="stylesheet" href="style.scss">
   </head>
   <body>
-    <h1>ISFSHAX packager</h1>
+    <h1>Wii U packager</h1>
     <p>
-        Yay!
+        This is a basic tool that automatically fetches all the files you need
+        to create an ISFShax SD card.
     </p>
 
     <button id="generate-package">
         Generate package
     </button>
 
+    <div id="generate-output">
+    </div>
+
     <div id="generate-status">
       (click the button above to generate a package)
-    </div>
-    <div id="generate-output">
     </div>
 
     <script type="module" src="app.ts"></script>

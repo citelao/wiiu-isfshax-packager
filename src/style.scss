@@ -1,0 +1,29 @@
+html {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+body {
+    max-width: 50rem;
+    margin: 0 auto;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+
+    display: block;
+    margin: 1rem 0;
+
+    &:hover,
+    &:focus {
+        background-color: #0056b3;
+    }
+}
+
+#generate-status {
+    // deemphaized, slightly
+    color: #666;
+}

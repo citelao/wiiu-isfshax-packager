@@ -170,9 +170,13 @@ async function generate() {
     outputStatus.innerText = "Creating zip file...";
     const zip = generateJSZip(completePayload);
 
+    console.log("Generating download...");
+    outputStatus.innerText = "Generating download...";
     const content = await zip.generateAsync({ type: "base64" });
     location.href = "data:application/zip;base64," + content;
-    
+
+    console.log("Done!");
+    outputStatus.innerText = "Done!";
 }
 
 document.getElementById("generate-package")!.addEventListener("click", generate);

@@ -15,6 +15,7 @@
   "author": "Ben Stolovitz (citelao)",
   "license": "ISC",
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.13.3",
     "buffer": "^6.0.3",
     "parcel": "^2.13.3",
     "process": "^0.11.10"
